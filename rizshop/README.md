@@ -1,3 +1,119 @@
+## TUGAS 8
+**1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?**
+
+const adalah modifier yang digunakan untuk menandai objek sebagai konstan pada waktu kompilasi. Saat kita menandai suatu widget atau objek dengan const, artinya objek tersebut bersifat immutable dan tidak akan berubah selama aplikasi berjalan. Ini memberikan beberapa manfaat dalam hal performa, terutama dalam hal efisiensi memori dan penghematan proses rendering.
+
+**keuntungan menggunakan const dalam flutter**
+
+-Menghemat Memori: Dengan const, objek hanya dibuat sekali dan disimpan dalam memori untuk digunakan kembali. Jika ada dua atau lebih widget atau objek yang identik dan ditandai dengan const, mereka akan merujuk ke objek yang sama dalam memori.
+
+-Meningkatkan Performa Rendering: Flutter menggunakan pendekatan declarative UI, di mana tampilan (UI) sering di-rebuild. Dengan const, widget tidak perlu di-rebuild jika sudah ada di memori, sehingga proses rendering menjadi lebih cepat.
+
+-Mengurangi Overhead Waktu Kompilasi: Pada saat kompilasi, const memberitahu Dart bahwa objek ini bersifat tetap (immutable), jadi Dart tidak perlu lagi memeriksa atau menghitung ulang nilainya. Ini membuat aplikasi lebih efisien saat dijalankan.
+
+**kapan sebaiknya menggunakan const?**
+
+-Untuk Widget yang Tidak Berubah: Jika suatu widget atau nilai tertentu tidak berubah selama aplikasi berjalan, gunakan const. Contohnya, widget statis seperti Text, Icon, atau Container yang tidak tergantung pada input atau state.
+
+-Saat Menggunakan Properti Literal: Misalnya, nilai seperti Text("Hello"), Icon(Icons.home), atau Color(0xFF000000) dapat ditandai dengan const jika nilainya tidak akan diubah.
+
+-Untuk Objek yang Dapat Digunakan Kembali: Jika ada objek atau widget yang sama muncul berkali-kali di UI, gunakan const untuk mengurangi duplikasi objek di memori.
+
+**kapan sebaiknya tidak menggunakan const?**
+
+-Saat Objek Akan Berubah Berdasarkan State: Jika suatu widget atau objek dipengaruhi oleh setState() atau tergantung pada variabel yang bisa berubah, hindari penggunaan const. Karena const tidak bisa diterapkan pada objek yang berubah selama runtime.
+
+-Untuk Objek yang Bergantung pada Input atau Parameter: Jika widget membutuhkan parameter yang dihasilkan secara dinamis atau bergantung pada input pengguna, lebih baik tidak menggunakan const.
+
+***
+
+**2. Jelaskan dan bandingkan penggunaan Column dan Row pada Flutter. Berikan contoh implementasi dari masing-masing layout widget ini!**
+
+Column: Menyusun widget secara vertikal, dari atas ke bawah.
+Row: Menyusun widget secara horizontal, dari kiri ke kanan.
+
+**Perbandingan column dan row**
+
+ Pada Column, mainAxisAlignment menentukan posisi vertikal anak-anaknya, sedangkan pada Row, mengatur posisi horizontal. Demikian juga, crossAxisAlignment pada Column mengatur posisi horizontal anak-anaknya, sedangkan pada Row, mengatur posisi vertikal.
+
+**contoh implementasi nya** 
+
+implementasi Column
+
+    Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+        Text('Ini adalah widget pertama'),
+        Text('Ini adalah widget kedua'),
+        ElevatedButton(
+        onPressed: () {},
+        child: Text('Tombol'),
+        ),
+    ],
+    );
+
+implementasi Row 
+
+    Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+            Icon(Icons.home, size: 30),
+            Icon(Icons.favorite, size: 30),
+            Icon(Icons.person, size: 30),
+        ],
+    );
+
+***
+**3. Sebutkan apa saja elemen input yang kamu gunakan pada halaman form yang kamu buat pada tugas kali ini. Apakah terdapat elemen input Flutter lain yang tidak kamu gunakan pada tugas ini? Jelaskan!**
+
+Elemen input yang digunakan 
+
+TextFormField: Digunakan untuk input teks yang memerlukan validasi. Pada halaman ini, terdapat empat TextFormField:
+
+-Nama Produk: Untuk memasukkan nama produk.
+
+-Harga: Untuk memasukkan harga produk (tipe data integer).
+
+-Jumlah: Untuk memasukkan jumlah produk (tipe data integer).
+
+-Deskripsi: Untuk memberikan deskripsi produk.
+
+ElevatedButton: Tombol untuk menyimpan data setelah pengguna mengisi form. Tombol ini menampilkan dialog konfirmasi jika form valid dan berhasil disimpan.
+
+beberapa elemen innput flutter yang lain tidak digunakan seperti dropdownbutton,checkbox,radiobutton, switch, slider, dan lain lain
+
+**4. Bagaimana cara kamu mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten? Apakah kamu mengimplementasikan tema pada aplikasi yang kamu buat?**
+Mengatur tema dalam aplikasi Flutter dapat dilakukan dengan menggunakan properti theme pada MaterialApp.Dengan mengatur tema, dapat membuat tampilan aplikasi yang konsisten, seperti warna latar belakang, teks, tombol, dan elemen lainnya, sehingga seluruh halaman memiliki gaya visual yang seragam.
+
+Ya, saya juga menerapkan tema di aplikasi yang saya buat
+
+    class MyApp extends StatelessWidget {
+    const MyApp({super.key});
+
+    // This widget is the root of your application.
+    @override
+    Widget build(BuildContext context) {
+        return MaterialApp(
+        title: 'Rizshop',
+        theme: ThemeData(
+            colorScheme: ColorScheme.fromSwatch(
+            primarySwatch: Colors.blue, // Light blue as primary color
+            ).copyWith(secondary: Colors.blue[900]), // Dark blue as secondary color
+            useMaterial3: true,
+        ),
+        home : MyHomePage(),
+        );
+    }
+    }
+
+
+**5.Bagaimana cara kamu menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter?**
+Untuk menangani navigasi dalam aplikasi Flutter yang memiliki banyak halaman, ada beberapa metode yang bisa digunakan, namun untuk aplikasi yang dibuat saat ini menggunakan Navigator yaitu ada Navigator push() dan Navigator Pop() 
+
+
+****
 ## TUGAS 7
 
 **1. jelaskan apa yang dimaksud dengan stateless widget dan stateful widget, dan jelaskan perbedaan dari keduanya.**

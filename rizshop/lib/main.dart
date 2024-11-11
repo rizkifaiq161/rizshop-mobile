@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rizshop/menu.dart';
+import 'package:rizshop/screens/menu.dart';
 
 void main() {
   runApp(const MyApp());

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:rizshop/widgets/left_drawer.dart';
+import 'package:rizshop/widgets/shop_card.dart';
+import 'package:rizshop/screens/shoplist_form.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -9,6 +12,7 @@ class MyHomePage extends StatelessWidget {
     return Scaffold(
       // AppBar adalah bagian atas halaman yang menampilkan judul.
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text(
           'Rizshop🏪',
           style: TextStyle(
@@ -18,6 +22,7 @@ class MyHomePage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+      drawer: const LeftDrawer(),
       // Body halaman dengan padding di sekelilingnya.
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -169,9 +174,15 @@ class ItemCard extends StatelessWidget {
         onTap: () {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
+            ..showSnackBar(SnackBar(
+                content: Text("Kamu telah menekan tombol ${item.name}!")));
+          if (item.name == "Tambah Produk") {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ShopFormPage()));
+          }else if (item.name == "Lihat Produk"){
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ShopFormPage()));
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(8),
