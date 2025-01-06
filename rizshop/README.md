@@ -1,3 +1,113 @@
+## TUGAS 9
+
+**1. Jelaskan mengapa kita perlu membuat model untuk melakukan pengambilan ataupun pengiriman data JSON? Apakah akan terjadi error jika kita tidak membuat model terlebih dahulu?**
+
+Membuat model untuk pengambilan atau pengiriman data JSON penting untuk memastikan struktur data yang konsisten, validasi otomatis, dan integrasi mudah dengan database. Model membantu menjaga integritas data, mengurangi risiko kesalahan, dan mempermudah pengembangan dengan menyediakan alat bawaan dari framework untuk operasi data.
+
+Jika tidak membuat model terlebih dahulu, error tidak selalu terjadi secara langsung, tetapi ada potensi masalah yang dapat muncul di berbagai tahap pengembangan. Tanpa model, struktur data JSON mungkin tidak sesuai dengan yang diharapkan, sehingga meningkatkan risiko data tidak valid atau tidak konsisten. Hal ini bisa menyebabkan error di runtime, terutama saat data yang tidak sesuai format diproses atau disimpan ke database.
+
+**2. Jelaskan fungsi dari library http yang sudah kamu implementasikan pada tugas ini**
+
+-Mengirim permintaan http
+
+mengirimkan permintaan HTTP seperti GET dan POST . Permintaan ini dapat digunakan untuk mengambil data dari server, mengirim data, atau melakukan operasi CRUD lainnya pada sumber daya web.
+
+-Mengelola URL dan koneksi 
+
+Library http ini mendukung manipulasi URL dan pengelolaan koneksi HTTP/HTTPS, seperti membuka, mengirim data, dan menutup koneksi. Ini memastikan komunikasi antara klien dan server berjalan dengan benar.
+
+-Menerima respon http
+brary ini juga menangani respons dari server, termasuk membaca status code (200 OK, 404 Not Found, dll.), header, dan isi (body) dari respons.
+
+**3. Jelaskan fungsi dari CookieRequest dan jelaskan mengapa instance CookieRequest perlu untuk dibagikan ke semua komponen di aplikasi Flutter.**
+
+Fungsi CookieRequest:
+
+-Menyimpan Cookie Otomatis
+CookieRequest menyimpan cookie yang dikirimkan oleh server, seperti session token atau data autentikasi, sehingga dapat digunakan kembali pada permintaan berikutnya tanpa memerlukan autentikasi ulang.
+
+-Mengirim Cookie ke Server
+Saat aplikasi melakukan permintaan HTTP, CookieRequest dapat menyertakan cookie yang telah disimpan sebelumnya ke dalam header permintaan. Hal ini penting untuk menjaga status login atau sesi pengguna.
+
+-Mempermudah Autentikasi dan Sesi
+CookieRequest mengelola cookie untuk menjaga pengguna tetap login selama sesi mereka berlangsung. Dengan cara ini, pengguna tidak perlu memasukkan ulang kredensialnya setiap kali berinteraksi dengan server.
+
+-Mengelola Data HTTP
+Selain cookie, CookieRequest biasanya memiliki fitur tambahan untuk mempermudah pengelolaan permintaan HTTP, seperti GET, POST, atau operasi lainnya.
+
+Mengapa Instance CookieRequest Perlu Dibagikan ke Semua Komponen di Aplikasi Flutter?
+
+-Mempertahankan Status Sesi
+Dalam aplikasi yang membutuhkan autentikasi, cookie digunakan untuk menjaga sesi pengguna. Dengan membagikan instance CookieRequest, semua komponen aplikasi dapat menggunakan cookie yang sama untuk memastikan sesi tetap konsisten.
+
+-Mencegah Duplikasi Data
+Jika setiap komponen memiliki instance CookieRequest sendiri, cookie atau data sesi mungkin menjadi tidak sinkron, yang dapat menyebabkan error seperti pengguna dianggap logout meskipun sudah login.
+
+-Efisiensi dalam Komunikasi HTTP
+Dengan satu instance CookieRequest, semua permintaan HTTP menggunakan sumber daya yang sama untuk mengelola koneksi, sehingga lebih efisien dibandingkan membuat koneksi baru untuk setiap permintaan.
+
+-Pengelolaan Terpusat
+Membagikan instance CookieRequest memungkinkan pengelolaan cookie dan data terkait lainnya dilakukan secara terpusat, mempermudah debugging dan pengembangan.
+
+-Konsistensi Pengalaman Pengguna
+Dengan instance CookieRequest yang dibagikan, aplikasi dapat memberikan pengalaman yang mulus kepada pengguna, misalnya tetap login meskipun berpindah halaman atau komponen.
+
+
+**4. Jelaskan mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter.**
+
+Mekanisme pengiriman data dari input hingga ditampilkan pada Flutter dimulai dengan pengguna memasukkan data melalui antarmuka aplikasi, seperti form atau field input. Data ini kemudian divalidasi di sisi Flutter untuk memastikan formatnya benar, misalnya memeriksa apakah field kosong atau sesuai format tertentu. Setelah validasi, data dikirim ke backend menggunakan protokol HTTP, biasanya dalam format JSON, melalui library seperti http. Backend menerima data tersebut, memprosesnya, dan menyimpannya ke dalam database jika diperlukan, sambil melakukan validasi tambahan untuk menjaga integritas data. Setelah data diproses, backend mengirimkan respons ke Flutter, yang berisi status operasi dan, jika berhasil, data yang diperlukan untuk ditampilkan. Flutter menerima respons tersebut, mengolahnya, dan memperbarui antarmuka menggunakan widget seperti Text atau lainnya untuk menampilkan data kepada pengguna
+
+
+**5. Jelaskan mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter.**
+
+Register: User memasukkan data → Flutter mengirim data ke Django → Django menyimpan data akun → Django mengirim respons → Flutter menampilkan hasil.
+
+Login: User memasukkan kredensial → Flutter mengirim data ke Django → Django memverifikasi dan mengirim token/session → Flutter menyimpan token dan mengarahkan ke menu.
+
+Logout: Flutter mengirim permintaan logout → Django menghapus session/token → Flutter menghapus data lokal dan kembali ke halaman login.
+
+Navigasi Menu: Setelah login, Flutter mengirim permintaan ke Django dengan token/session untuk memverifikasi identitas dan menampilkan data pengguna.
+
+
+**6. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step! (bukan hanya sekadar mengikuti tutorial).**
+
+Secara keseluruhan, implementasi checklist diatas sesuai dengan yang ada di tutorial, tetapi ada beberapa hal yang saya tambahkan pada file Shop_Entry.dart dan shoplist_form.dart dimana saya menambahkan atribut amount/jumlah produk dengan tampilan seperti dibawah ini
+
+-File Shop_Entry.dart
+
+    Fields({
+        required this.user,
+        required this.name,
+        required this.price,
+        required this.description,
+        required this.amount,
+    });
+
+    factory Fields.fromJson(Map<String, dynamic> json) => Fields(
+        user: json["user"],
+        name: json["name"],
+        price: json["price"],
+        description: json["description"],
+        amount: json["amount"],
+    );
+
+-File shoplist_form.dart
+
+    onPressed: () async {
+    if (_formKey.currentState!.validate()) {
+    // Kirim ke Django dan tunggu respons
+    // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+    final response = await request.postJson(
+        "http://127.0.0.1:8000/create-flutter/",
+        jsonEncode(<String, String>{
+            'name': _name,
+            'price': _price.toString(),
+            'description': _description,
+            'amount': _amount.toString(),
+        }));
+
+###
+
 ## TUGAS 8
 **1. Apa kegunaan const di Flutter? Jelaskan apa keuntungan ketika menggunakan const pada kode Flutter. Kapan sebaiknya kita menggunakan const, dan kapan sebaiknya tidak digunakan?**
 

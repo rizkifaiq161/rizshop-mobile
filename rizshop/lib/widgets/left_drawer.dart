@@ -56,10 +56,21 @@ class LeftDrawer extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ShopFormPage(),
+                    builder: (context) => MyHomePage(),
                   ));
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.add_reaction_rounded),
+            title: const Text('Daftar Barang'),
+            onTap: () {
+                // Route menu ke
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ShopFormPage()),
+                );
+            },
+        ),
         ],
       ),
     );
